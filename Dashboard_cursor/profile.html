@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            padding-top: 56px;
+        }
+        .navbar-custom {
+            background-color: #111;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .navbar-brand {
+            color: #00ffcc;
+        }
+        .navbar-brand:hover {
+            color: #00e6b8;
+        }
+        .profile-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-header img {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 10px;
+        }
+        .profile-header h2 {
+            color: #00ffcc;
+        }
+        .profile-details {
+            margin-top: 20px;
+        }
+        .profile-details p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <a class="navbar-brand" href="dashboard.html"><i class="fas fa-coins"></i> Crypto Dashboard</a>
+    </nav>
+    <div class="profile-container mt-5">
+        <div class="profile-header">
+            <img src="https://via.placeholder.com/120" alt="Profile Picture">
+            <h2>John Doe</h2>
+            <p>johndoe@example.com</p>
+        </div>
+        <div class="profile-details">
+            <h5>Profile Information</h5>
+            <p><strong>Username:</strong> johndoe</p>
+            <p><strong>Email:</strong> johndoe@example.com</p>
+            <p><strong>Member Since:</strong> January 2021</p>
+            <p><strong>Last Login:</strong> March 15, 2023</p>
+            <button class="btn btn-outline-light mt-3">Edit Profile</button>
+        </div>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internet Speed Checker</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .internet-speed-checker {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .internet-speed-checker button {
+            background-color: #e5c93e;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .internet-speed-checker button:hover {
+            background-color: #d4b22f;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="internet-speed-checker">
+        <h5>Internet Speed Checker</h5>
+        <canvas id="speedometer" width="300" height="300"></canvas>
+        <p id="speedLevel">Level: N/A</p>
+        <button id="checkSpeedButton">Check Speed</button>
+        <p id="speedResult">Speed: N/A</p>
+    </div>
+
+    <script>
+        // Initialize the speedometer chart
+        var speedometerCtx = document.getElementById('speedometer').getContext('2d');
+        var speedometerChart = new Chart(speedometerCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Speed', 'Remaining'],
+                datasets: [{
+                    data: [0, 100], // Initial speed and remaining
+                    backgroundColor: ['#e5c93e', '#f0f0f0'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                rotation: 1 * Math.PI, // Start angle
+                circumference: 1 * Math.PI, // End angle
+                cutout: '70%',
+                plugins: {
+                    tooltip: {
+                        enabled: false
+                    }
+                },
+                animation: {
+                    animateRotate: true,
+                    animateScale: true
+                },
+                elements: {
+                    center: {
+                        text: '0 Mbps',
+                        color: '#333', // Default is #000000
+                        fontStyle: 'Arial', // Default is Arial
+                        sidePadding: 20 // Default is 20 (as a percentage)
+                    }
+                }
+            }
+        });
+
+        // Function to update the speedometer
+        function updateSpeedometer(speed) {
+            speedometerChart.data.datasets[0].data[0] = speed;
+            speedometerChart.data.datasets[0].data[1] = 100 - speed;
+            speedometerChart.options.elements.center.text = `${speed} Mbps`;
+            speedometerChart.update();
+
+            // Update speed level
+            updateSpeedLevel(speed);
+        }
+
+        // Function to update the speed level
+        function updateSpeedLevel(speed) {
+            let level;
+            if (speed < 10) {
+                level = "Slow";
+            } else if (speed < 50) {
+                level = "Moderate";
+            } else {
+                level = "Fast";
+            }
+            document.getElementById('speedLevel').textContent = `Level: ${level}`;
+        }
+
+        // Function to check internet speed
+        function checkInternetSpeed() {
+            const imageAddr = "https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png"; // A larger image for better accuracy
+            const downloadSize = 500000; // Approximate size in bytes (adjust as needed)
+            const startTime = new Date().getTime();
+            const download = new Image();
+
+            download.onload = function () {
+                const endTime = new Date().getTime();
+                const duration = (endTime - startTime) / 1000; // Time in seconds
+                const bitsLoaded = downloadSize * 8;
+                const speedBps = (bitsLoaded / duration).toFixed(2);
+                const speedKbps = (speedBps / 1024).toFixed(2);
+                const speedMbps = (speedKbps / 1024).toFixed(2);
+                document.getElementById('speedResult').textContent = `Download Speed: ${speedMbps} Mbps`;
+
+                // Update speedometer
+                updateSpeedometer(Math.min(speedMbps, 100)); // Cap at 100 for display
+
+                // Now check upload speed
+                checkUploadSpeed();
+            };
+
+            download.onerror = function () {
+                document.getElementById('speedResult').textContent = "Error checking download speed.";
+            };
+
+            download.src = imageAddr + "?n=" + Math.random();
+        }
+
+        // Function to check upload speed
+        function checkUploadSpeed() {
+            const xhr = new XMLHttpRequest();
+            const data = new Blob([new ArrayBuffer(500000)]); // 500KB of data
+            const startTime = new Date().getTime();
+
+            xhr.open("POST", "https://httpbin.org/post", true); // Use a public echo server
+            xhr.onload = function () {
+                const endTime = new Date().getTime();
+                const duration = (endTime - startTime) / 1000; // Time in seconds
+                const bitsLoaded = data.size * 8;
+                const speedBps = (bitsLoaded / duration).toFixed(2);
+                const speedKbps = (speedBps / 1024).toFixed(2);
+                const speedMbps = (speedKbps / 1024).toFixed(2);
+                document.getElementById('speedResult').textContent += ` | Upload Speed: ${speedMbps} Mbps`;
+
+                // Update speedometer for upload speed
+                updateSpeedometer(Math.min(speedMbps, 100)); // Cap at 100 for display
+            };
+
+            xhr.onerror = function () {
+                document.getElementById('speedResult').textContent += " | Error checking upload speed.";
+            };
+
+            xhr.send(data);
+        }
+
+        // Add event listener to the button
+        document.getElementById('checkSpeedButton').addEventListener('click', checkInternetSpeed);
+    </script>
+</body>
+
+</html> 

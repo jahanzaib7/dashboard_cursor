@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Investments</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            padding-top: 56px;
+        }
+        .navbar-custom {
+            background-color: #111;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .navbar-brand {
+            color: #00ffcc;
+        }
+        .navbar-brand:hover {
+            color: #00e6b8;
+        }
+        .investment-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .investment-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .investment-header h2 {
+            color: #00ffcc;
+        }
+        .investment-form {
+            margin-top: 20px;
+        }
+        .investment-form label {
+            color: #e0e0e0;
+        }
+        .investment-form .form-control {
+            background-color: #333;
+            color: #e0e0e0;
+            border: none;
+        }
+        .investment-form .form-control:focus {
+            background-color: #444;
+            color: #e0e0e0;
+        }
+        .btn-outline-light {
+            border-color: #00ffcc;
+            color: #00ffcc;
+        }
+        .btn-outline-light:hover {
+            background-color: #00ffcc;
+            color: #111;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <a class="navbar-brand" href="dashboard.html"><i class="fas fa-coins"></i> Crypto Dashboard</a>
+    </nav>
+    <div class="investment-container mt-5">
+        <div class="investment-header">
+            <h2>Manage Your Investments</h2>
+            <p>Track and manage your cryptocurrency investments here.</p>
+        </div>
+        <div class="investment-form">
+            <form id="investmentForm">
+                <div class="form-group">
+                    <label for="cryptoType">Cryptocurrency Type</label>
+                    <select class="form-control" id="cryptoType">
+                        <option>Bitcoin</option>
+                        <option>Ethereum</option>
+                        <option>Litecoin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="investmentAmount">Investment Amount</label>
+                    <input type="number" class="form-control" id="investmentAmount" placeholder="Enter amount">
+                </div>
+                <div class="form-group">
+                    <label for="investmentDate">Investment Date</label>
+                    <input type="date" class="form-control" id="investmentDate">
+                </div>
+                <button type="submit" class="btn btn-outline-light mt-3">Add Investment</button>
+            </form>
+        </div>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('investmentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const cryptoType = document.getElementById('cryptoType').value;
+            const investmentAmount = parseFloat(document.getElementById('investmentAmount').value);
+            const investmentDate = document.getElementById('investmentDate').value;
+
+            const investment = {
+                user: 'John Doe', // Replace with dynamic user data if available
+                cryptoType,
+                investmentAmount,
+                investmentDate,
+                profit: 0, // Placeholder for profit calculation
+                loss: 0 // Placeholder for loss calculation
+            };
+
+            let investments = JSON.parse(localStorage.getItem('investments')) || [];
+            investments.push(investment);
+            localStorage.setItem('investments', JSON.stringify(investments));
+
+            alert('Investment added successfully!');
+            window.location.href = 'dashboard.html';
+        });
+    </script>
+</body>
+</html>

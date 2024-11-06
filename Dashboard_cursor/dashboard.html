@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Crypto Dashboard</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            padding-top: 56px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .navbar-custom {
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            color: #e5c93e;
+        }
+
+        .navbar-brand:hover {
+            color: #d4b22f;
+        }
+
+        .sidebar {
+            height: 100vh;
+            background-color: #ffffff; /* Changed to solid color */
+            padding-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 56px;
+            left: 0;
+            width: 220px;
+            overflow-y: auto;
+            transition: all 0.3s;
+        }
+
+        .sidebar a {
+            color: #e5c93e;
+            font-weight: 500;
+            padding: 12px 20px;
+            margin: 5px 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .sidebar a i {
+            margin-right: 10px;
+        }
+
+        .sidebar a:hover {
+            background-color: #f0f0f0;
+            color: #d4b22f;
+        }
+
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+            transition: margin-left 0.3s;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            transition: transform 0.3s;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .bg-gradient-primary {
+            background: linear-gradient(45deg, #007bff, #e5c93e);
+        }
+
+        .bg-gradient-success {
+            background: linear-gradient(45deg, #28a745, #e5c93e);
+        }
+
+        .bg-gradient-warning {
+            background: linear-gradient(45deg, #ffc107, #e5c93e);
+        }
+
+        .quick-access {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .quick-access button {
+            background-color: #e5c93e;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+            font-weight: 500;
+        }
+
+        .quick-access button:hover {
+            background-color: #d4b22f;
+            transform: translateY(-2px);
+        }
+
+        .news-ticker {
+            background-color: #ffffff;
+            color: #e5c93e;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .news-ticker span {
+            display: inline-block;
+            padding-right: 50px;
+            animation: ticker 15s linear infinite;
+        }
+
+        @keyframes ticker {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .live-stats {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .live-stats h5 {
+            color: #e5c93e;
+        }
+
+        .live-stats p {
+            margin: 0;
+            color: #333;
+        }
+
+        .investment-list {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .investment-list h5 {
+            color: #e5c93e;
+        }
+
+        .investment-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .investment-list li {
+            margin: 5px 0;
+            color: #333;
+        }
+
+        .coin-list {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .coin-list h5 {
+            color: #e5c93e;
+        }
+
+        .coin-list table {
+            width: 100%;
+            color: #333;
+        }
+
+        .coin-list th, .coin-list td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .coin-list th {
+            background-color: #f0f0f0;
+        }
+
+        .coin-list tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .coin-signals {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .coin-signals h5 {
+            color: #e5c93e;
+        }
+
+        .coin-signals ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .coin-signals li {
+            margin: 5px 0;
+            color: #333;
+        }
+
+        .coin-signals .buy {
+            color: #28a745;
+        }
+
+        .coin-signals .sell {
+            color: #dc3545;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                height: auto;
+                width: 100%;
+                position: relative;
+                top: 0;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+        }
+
+        .chatbot {
+            position: fixed;
+            bottom: 0;
+            right: 20px;
+            width: 300px;
+            background-color: #ffffff;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: none; /* Initially hidden */
+        }
+
+        .chatbot-header {
+            background-color: #e5c93e;
+            color: #ffffff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-messages {
+            height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: #f8f9fa;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 10px;
+            background-color: #ffffff;
+        }
+
+        .chatbot-input input {
+            flex-grow: 1;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .chatbot-input button {
+            background-color: #e5c93e;
+            color: #ffffff;
+            border: none;
+            padding: 5px 10px;
+            margin-left: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .chatbot-input button:hover {
+            background-color: #d4b22f;
+        }
+
+        .internet-speed-checker {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .internet-speed-checker button {
+            background-color: #e5c93e;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .internet-speed-checker button:hover {
+            background-color: #d4b22f;
+        }
+
+        .btn-warning {
+            background-color: #e5c93e;
+            color: #ffffff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-warning:hover {
+            background-color: #d4b22f;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Page Loader -->
+    <div id="pageLoader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.8); display: flex; justify-content: center; align-items: center; z-index: 9999;">
+        <div class="spinner-border text-warning" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <a class="navbar-brand" href="#"><i class="fas fa-coins"></i> Crypto Dashboard</a>
+        <div class="ml-auto d-flex align-items-center">
+            <div class="dropdown">
+                <a class="nav-link dropdown-toggle text-dark" href="#" id="profileDropdown" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="https://via.placeholder.com/30" alt="Profile" class="rounded-circle"> John Doe
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
+                    <a class="dropdown-item" href="profile.html">Profile</a>
+                    <a class="dropdown-item" href="profit_loss.html">Profit/Loss</a>
+                    <a class="dropdown-item" href="#">Settings</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Logout</a>
+                </div>
+            </div>
+            <!-- Speed Checker Button -->
+            <button id="checkSpeedButton" class="btn btn-warning ml-3" data-toggle="modal" data-target="#speedCheckerModal">Check Speed</button>
+            <!-- Clear Cookies Button -->
+            <button id="clearCookiesButton" class="btn btn-danger ml-3">Clear Cookies</button>
+            <!-- Agent Button -->
+            <button id="agentButton" class="btn btn-info ml-3" data-toggle="modal" data-target="#agentModal">Run Agents</button>
+        </div>
+    </nav>
+    <div class="d-flex flex-column flex-md-row">
+        <div class="sidebar d-flex flex-column p-3">
+            <a href="#home" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="#market" class="nav-link"><i class="fas fa-chart-line"></i> Market</a>
+            <a href="#portfolio" class="nav-link"><i class="fas fa-wallet"></i> Portfolio</a>
+            <a href="#settings" class="nav-link"><i class="fas fa-cog"></i> Settings</a>
+            <!-- Agent Modal Trigger -->
+            <button class="btn btn-info mt-3" data-toggle="modal" data-target="#agentModal">View Agent Output</button>
+        </div>
+        <div class="content flex-grow-1">
+            <h2>Welcome to the Futuristic Crypto Dashboard</h2>
+            <p>This is the main content area. Add your dashboard widgets and content here.</p>
+
+            <!-- News Ticker -->
+            <div class="news-ticker">
+                <span>Bitcoin hits new all-time high! | Ethereum 2.0 launch date announced | Dogecoin surges 20% in 24
+                    hours</span>
+            </div>
+
+            <!-- Quick Access Buttons -->
+            <div class="quick-access">
+                <button onclick="location.href='investments.html'">Investments</button>
+                <button onclick="location.href='profit_loss.html'">Profit & Loss</button>
+                <button onclick="location.href='transactions.html'">Transactions</button>
+                <button onclick="location.href='withdraw.html'">Withdraw</button>
+            </div>
+
+            <!-- Live Stats Section -->
+            <div class="live-stats">
+                <h5>Live Crypto Indicators</h5>
+                <p>Bitcoin: $60,000 <span style="color: #28a745;">(+2.5%)</span></p>
+                <p>Ethereum: $4,000 <span style="color: #28a745;">(+1.8%)</span></p>
+                <p>Litecoin: $200 <span style="color: #dc3545;">(-0.5%)</span></p>
+            </div>
+
+            <!-- Investment List Section -->
+            <div class="investment-list">
+                <h5>My Investments</h5>
+                <ul id="investmentList">
+                    <!-- Investments will be dynamically added here -->
+                </ul>
+                <p id="totalInvestment">Total Investment: $0</p>
+            </div>
+
+            <!-- Profit/Loss Section -->
+            <div class="profit-loss">
+                <h5>Profit/Loss</h5>
+                <p id="totalProfitLoss">Total Profit/Loss: $0</p>
+            </div>
+
+            <!-- Crypto Content Section -->
+            <div class="crypto-content">
+                <h5>Crypto Insights</h5>
+                <div id="cryptoContent"></div>
+            </div>
+
+            <!-- Coin List Section -->
+            <div class="coin-list">
+                <h5>Market Coins</h5>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Coin</th>
+                            <th>Price</th>
+                            <th>Market Cap</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Bitcoin</td>
+                            <td>$60,000</td>
+                            <td>$1.1 Trillion</td>
+                        </tr>
+                        <tr>
+                            <td>Ethereum</td>
+                            <td>$4,000</td>
+                            <td>$400 Billion</td>
+                        </tr>
+                        <tr>
+                            <td>Litecoin</td>
+                            <td>$200</td>
+                            <td>$13 Billion</td>
+                        </tr>
+                        <!-- Add more coins as needed -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Coin Signals Section -->
+            <div class="coin-signals">
+                <h5>Market Signals</h5>
+                <ul>
+                    <li>Bitcoin: <span class="buy">Buy Signal</span></li>
+                    <li>Ethereum: <span class="sell">Sell Signal</span></li>
+                    <li>Litecoin: <span class="buy">Buy Signal</span></li>
+                </ul>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card text-white bg-gradient-primary mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-globe"></i> Total Market Cap</h5>
+                            <p class="card-text">$1.5 Trillion</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-gradient-success mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-exchange-alt"></i> 24h Volume</h5>
+                            <p class="card-text">$200 Billion</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-gradient-warning mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-coins"></i> Bitcoin Dominance</h5>
+                            <p class="card-text">45%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart Section -->
+            <div class="row">
+                <div class="col-md-6">
+                    <canvas id="priceChart" width="400" height="200"></canvas>
+                </div>
+                <div class="col-md-6">
+                    <canvas id="portfolioChart" width="300" height="150"></canvas> <!-- Adjusted size -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Speed Checker Modal -->
+    <div class="modal fade" id="speedCheckerModal" tabindex="-1" aria-labelledby="speedCheckerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="speedCheckerModalLabel">Internet Speed Checker</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="internet-speed-checker">
+                        <button id="startSpeedTest" class="btn btn-warning">Start Test</button>
+                        <p style="margin-top: 10px; color: #666;">(Click twice)</p>
+                        <div id="loader" style="display: none; margin: 20px 0;">
+                            <div class="spinner-border text-warning" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                        <p id="speedResult">Speed: N/A</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Agent Output Modal -->
+    <div class="modal fade" id="agentModal" tabindex="-1" aria-labelledby="agentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="agentModalLabel">Agent Output</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="keywordInput">Enter Keywords:</label>
+                        <input type="text" id="keywordInput" class="form-control" placeholder="e.g., Bitcoin, Ethereum">
+                    </div>
+                    <button id="generateContentButton" class="btn btn-primary">Generate Content</button>
+                    <div id="agentOutput" style="margin-top: 20px;">
+                        <!-- Agent-generated content will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot Section -->
+    <div id="chatbot" class="chatbot">
+        <div class="chatbot-header">
+            <h5>Chatbot</h5>
+            <button id="closeChatbot" class="close-chatbot">&times;</button>
+        </div>
+        <div id="chatbotMessages" class="chatbot-messages">
+            <!-- Chat messages will appear here -->
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatbotInput" placeholder="Type a message..." />
+            <button id="sendChatbotMessage">Send</button>
+        </div>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        // Hide page loader after 5 seconds
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('pageLoader').style.display = 'none';
+            }, 5000);
+        });
+
+        // Sample data for investments
+        const investments = [
+            { user: 'John Doe', investmentAmount: 1000, cryptoType: 'Bitcoin', investmentDate: '2023-01-01', currentValue: 1200 },
+            { user: 'John Doe', investmentAmount: 500, cryptoType: 'Ethereum', investmentDate: '2023-02-01', currentValue: 450 },
+            { user: 'John Doe', investmentAmount: 300, cryptoType: 'Litecoin', investmentDate: '2023-03-01', currentValue: 350 }
+        ];
+
+        // Agent to calculate total investment
+        function calculateTotalInvestment() {
+            let totalInvestment = 0;
+            investments.forEach(investment => {
+                totalInvestment += investment.investmentAmount;
+            });
+            document.getElementById('totalInvestment').textContent = `Total Investment: $${totalInvestment}`;
+        }
+
+        // Agent to calculate total profit/loss
+        function calculateTotalProfitLoss() {
+            let totalProfitLoss = 0;
+            investments.forEach(investment => {
+                totalProfitLoss += (investment.currentValue - investment.investmentAmount);
+            });
+            document.getElementById('totalProfitLoss').textContent = `Total Profit/Loss: $${totalProfitLoss}`;
+        }
+
+        // Function to interact with OpenAI API
+        async function fetchCryptoContent(keywords) {
+            const apiKey = 'YOUR_OPENAI_API_KEY'; // Replace with your OpenAI API key
+            const prompt = `Generate a detailed description about the following crypto keywords: ${keywords.join(', ')}.`;
+
+            try {
+                const response = await axios.post('https://api.openai.com/v1/engines/davinci-codex/completions', {
+                    prompt: prompt,
+                    max_tokens: 150,
+                    n: 1,
+                    stop: null,
+                    temperature: 0.7
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    }
+                });
+
+                return response.data.choices[0].text.trim();
+            } catch (error) {
+                console.error('Error fetching content from OpenAI:', error);
+                return 'Error generating content. Please try again later.';
+            }
+        }
+
+        // Function to display agent output in modal
+        async function displayAgentOutput() {
+            const agentOutput = document.getElementById('agentOutput');
+            agentOutput.innerHTML = ''; // Clear existing content
+
+            const keywordInput = document.getElementById('keywordInput').value;
+            const keywords = keywordInput.split(',').map(keyword => keyword.trim());
+            const content = await fetchCryptoContent(keywords);
+
+            const section = document.createElement('div');
+            const heading = document.createElement('h6');
+            heading.textContent = 'Generated Crypto Content';
+            const description = document.createElement('p');
+            description.textContent = content;
+            section.appendChild(heading);
+            section.appendChild(description);
+            agentOutput.appendChild(section);
+        }
+
+        // Add event listener to the generate content button
+        document.getElementById('generateContentButton').addEventListener('click', displayAgentOutput);
+
+        // Initialize agents
+        calculateTotalInvestment();
+        calculateTotalProfitLoss();
+
+        // Function to clear cookies
+        function clearCookies() {
+            const cookies = document.cookie.split("; ");
+            for (let c = 0; c < cookies.length; c++) {
+                const d = window.location.hostname.split(".");
+                while (d.length > 0) {
+                    const cookieBase = encodeURIComponent(cookies[c].split(";")[0].split("=")[0]) + '=; expires=Thu, 01-Jan-1970 00:00:01 GMT; domain=' + d.join('.') + ' ;path=';
+                    const p = location.pathname.split('/');
+                    document.cookie = cookieBase + '/';
+                    while (p.length > 0) {
+                        document.cookie = cookieBase + p.join('/');
+                        p.pop();
+                    };
+                    d.shift();
+                }
+            }
+            alert("Cookies cleared!");
+        }
+
+        // Add event listener to the clear cookies button
+        document.getElementById('clearCookiesButton').addEventListener('click', clearCookies);
+
+        // Add event listener to the agent button
+        document.getElementById('agentButton').addEventListener('click', async function() {
+            calculateTotalInvestment();
+            calculateTotalProfitLoss();
+            await displayAgentOutput();
+            alert("Agents have recalculated the totals and generated crypto content.");
+        });
+
+        // Function to check internet speed
+        function checkInternetSpeed() {
+            document.getElementById('loader').style.display = 'block'; // Show loader
+
+            // Set a timeout to hide the loader after 5 seconds
+            const loaderTimeout = setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('speedResult').textContent = "Speed test timed out.";
+            }, 5000);
+
+            const imageAddr = "https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png"; // A larger image for better accuracy
+            const downloadSize = 500000; // Approximate size in bytes (adjust as needed)
+            const startTime = new Date().getTime();
+            const download = new Image();
+
+            download.onload = function () {
+                clearTimeout(loaderTimeout); // Clear the timeout if the test completes
+                const endTime = new Date().getTime();
+                const duration = (endTime - startTime) / 1000; // Time in seconds
+                const bitsLoaded = downloadSize * 8;
+                const speedBps = (bitsLoaded / duration).toFixed(2);
+                const speedKbps = (speedBps / 1024).toFixed(2);
+                const speedMbps = (speedKbps / 1024).toFixed(2);
+                document.getElementById('speedResult').textContent = `Download Speed: ${speedMbps} Mbps`;
+
+                // Now check upload speed
+                checkUploadSpeed(loaderTimeout);
+            };
+
+            download.onerror = function () {
+                clearTimeout(loaderTimeout); // Clear the timeout if an error occurs
+                document.getElementById('speedResult').textContent = "Error checking download speed.";
+                document.getElementById('loader').style.display = 'none'; // Hide loader
+            };
+
+            download.src = imageAddr + "?n=" + Math.random();
+        }
+
+        // Function to check upload speed
+        function checkUploadSpeed(loaderTimeout) {
+            const xhr = new XMLHttpRequest();
+            const data = new Blob([new ArrayBuffer(500000)]); // 500KB of data
+            const startTime = new Date().getTime();
+
+            xhr.open("POST", "https://httpbin.org/post", true); // Use a public echo server
+            xhr.onload = function () {
+                clearTimeout(loaderTimeout); // Clear the timeout if the test completes
+                const endTime = new Date().getTime();
+                const duration = (endTime - startTime) / 1000; // Time in seconds
+                const bitsLoaded = data.size * 8;
+                const speedBps = (bitsLoaded / duration).toFixed(2);
+                const speedKbps = (speedBps / 1024).toFixed(2);
+                const speedMbps = (speedKbps / 1024).toFixed(2);
+                document.getElementById('speedResult').textContent += ` | Upload Speed: ${speedMbps} Mbps`;
+                document.getElementById('loader').style.display = 'none'; // Hide loader
+            };
+
+            xhr.onerror = function () {
+                clearTimeout(loaderTimeout); // Clear the timeout if an error occurs
+                document.getElementById('speedResult').textContent += " | Error checking upload speed.";
+                document.getElementById('loader').style.display = 'none'; // Hide loader
+            };
+
+            xhr.send(data);
+        }
+
+        // Add event listener to the button
+        document.getElementById('startSpeedTest').addEventListener('click', checkInternetSpeed);
+
+        // Chatbot functionality
+        document.getElementById('sendChatbotMessage').addEventListener('click', function() {
+            const input = document.getElementById('chatbotInput');
+            const message = input.value.trim();
+            if (message) {
+                addMessageToChat('User', message);
+                input.value = '';
+                // Simulate a bot response
+                setTimeout(() => {
+                    addMessageToChat('Bot', 'This is a response from the bot.');
+                }, 1000);
+            }
+        });
+
+        function addMessageToChat(sender, message) {
+            const messagesContainer = document.getElementById('chatbotMessages');
+            const messageElement = document.createElement('div');
+            messageElement.textContent = `${sender}: ${message}`;
+            messagesContainer.appendChild(messageElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Toggle chatbot visibility
+        document.getElementById('closeChatbot').addEventListener('click', function() {
+            document.getElementById('chatbot').style.display = 'none';
+        });
+
+        // Open chatbot (for demonstration, you can add a button to open it)
+        document.getElementById('chatbot').style.display = 'block';
+    </script>
+</body>
+
+</html>

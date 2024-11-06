@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdrawals</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            padding-top: 56px;
+        }
+        .navbar-custom {
+            background-color: #111;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .navbar-brand {
+            color: #00ffcc;
+        }
+        .navbar-brand:hover {
+            color: #00e6b8;
+        }
+        .withdraw-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .withdraw-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .withdraw-header h2 {
+            color: #00ffcc;
+        }
+        .withdraw-form {
+            margin-top: 20px;
+        }
+        .withdraw-form label {
+            color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <a class="navbar-brand" href="dashboard.html"><i class="fas fa-coins"></i> Crypto Dashboard</a>
+    </nav>
+    <div class="withdraw-container mt-5">
+        <div class="withdraw-header">
+            <h2>Withdraw Funds</h2>
+            <p>Manage your withdrawals from investments.</p>
+        </div>
+        <div class="withdraw-form">
+            <form>
+                <div class="form-group">
+                    <label for="withdrawAmount">Withdrawal Amount</label>
+                    <input type="number" class="form-control" id="withdrawAmount" placeholder="Enter amount">
+                </div>
+                <div class="form-group">
+                    <label for="withdrawDate">Withdrawal Date</label>
+                    <input type="date" class="form-control" id="withdrawDate">
+                </div>
+                <button type="submit" class="btn btn-outline-light mt-3">Withdraw</button>
+            </form>
+        </div>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

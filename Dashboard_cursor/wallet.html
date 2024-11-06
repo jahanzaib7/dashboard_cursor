@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Wallets</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            padding-top: 56px;
+        }
+        .navbar-custom {
+            background-color: #111;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .navbar-brand {
+            color: #00ffcc;
+        }
+        .navbar-brand:hover {
+            color: #00e6b8;
+        }
+        .wallet-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .wallet-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .wallet-header h2 {
+            color: #00ffcc;
+        }
+        .wallet-details {
+            margin-top: 20px;
+        }
+        .wallet-details p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <a class="navbar-brand" href="dashboard.html"><i class="fas fa-coins"></i> Crypto Dashboard</a>
+    </nav>
+    <div class="wallet-container mt-5">
+        <div class="wallet-header">
+            <h2>Your Wallets</h2>
+            <p>Manage your cryptocurrency wallets here.</p>
+        </div>
+        <div class="wallet-details">
+            <h5>Wallet Information</h5>
+            <p><strong>Bitcoin Wallet:</strong> 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</p>
+            <p><strong>Ethereum Wallet:</strong> 0x32Be343B94f860124dC4fEe278FDCBD38C102D88</p>
+            <p><strong>Litecoin Wallet:</strong> LZ1Q1eP5QGefi2DMPTfTL5SLmv7DivfNa</p>
+            <button class="btn btn-outline-light mt-3">Add New Wallet</button>
+        </div>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
